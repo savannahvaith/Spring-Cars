@@ -81,8 +81,9 @@ public class CarController {
 	@PatchMapping("/update/{index}")
 	public ResponseEntity<Car> changeAttribute(@PathParam("make") String make, @PathParam("model") String model, @PathVariable int index){
 		
-		Car updatedVehicle = this.vehicles.get(index);
+		Car updatedVehicle = this.vehicles.get(index);		
 		updatedVehicle.setMake(make);
+		updatedVehicle.setModel(model);
 		
 		return new ResponseEntity<Car>(updatedVehicle, HttpStatus.ACCEPTED);
 	}
