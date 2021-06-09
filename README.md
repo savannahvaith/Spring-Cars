@@ -10,8 +10,8 @@ We can use it to configure the Response that is sent from Spring to the Presenta
 
 ```java
 
-public ResponseEntity<Marvel> getAll(){
-	return new ResponseEntity<Marvel>(this.service.getAll(), HttpStatus.OK); 
+public ResponseEntity<List<Car>> getAll(){
+	return new ResponseEntity<Car>(this.vehicle, HttpStatus.OK); 
 }
 ```
 
