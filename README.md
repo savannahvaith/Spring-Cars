@@ -11,7 +11,7 @@ Used to fetch data - `GET Requests`
 
 ```java
 @GetMapping("/getAll")
-public List<Marvel> getAll(){
+public List<Car> getAll(){
 	...
 }
 ```
@@ -25,7 +25,7 @@ Only one parameter can be marked this way.
 
 ```java
 @PostMapping("/create")
-public void create(@RequestBody Marvel marvel){
+public void create(@RequestBody Car car){
 	...
 }
 ```
@@ -39,7 +39,7 @@ The value needs to match exactly.
 
 ```java
 @DeleteMapping("/remove/{id}")
-public Marvel remove(@PathVariable int id){
+public Car remove(@PathVariable int id){
 	...
 }
 ```
