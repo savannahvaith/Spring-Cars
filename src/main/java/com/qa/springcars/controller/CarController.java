@@ -42,10 +42,7 @@ public class CarController {
 	
 	@GetMapping("/getAll")
 	public ResponseEntity<List<Car>> getAllVehicles(){
-		//return new ResponseEntity<List<Car>>(this.vehicles,HttpStatus.OK); 
-		// builder pattern 
 		return ResponseEntity.ok(this.service.getAllVehicles());
-		
 	}
 	
 	// READ ONE
