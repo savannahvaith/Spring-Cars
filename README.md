@@ -1,19 +1,19 @@
-# Response Entities
+# CDI and Service
 
-`ResponseEntity` represents the whole HTTP response: 
+## CDI - `Context Dependency Injection`
 
-* Status Code
-* Headers
-* Body 
+The idea of CDI is injecting a dependency into a class at run time. 
 
-We can use it to configure the Response that is sent from Spring to the Presentation Layer. 
+We want to make it so that the class is fully closed for modification. 
+Therefore, instead of having concrete implementations, it should depend on abstractions - we use it to reduce coupling between components. 
 
-```java
+If we had concrete implementations in a class that we later wanted to change, we would be breaking the `O&D` of `SOLID`.
 
-public ResponseEntity<List<Car>> getAll(){
-	return new ResponseEntity<Car>(this.vehicle, HttpStatus.OK); 
-}
-```
 
-These are used in the `Controller` component of the application. 
+## Service
 
+This is where the logic of our application lives. 
+
+We mark our class with a `@Service` Annotation, which tells the `Application Context` that the class is a `Component`.
+
+We need to adhere to the `Single Responsibility` principle of SOLID and therefore our `Controller` class mustn't be responsible for handling logic. 
