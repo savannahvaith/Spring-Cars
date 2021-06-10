@@ -1,10 +1,10 @@
 package com.qa.springcars.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,34 +14,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.springcars.domain.Car;
+import com.qa.springcars.service.CarServiceList;
 
 @RestController // Allow eternal access to our application via HTTPRequests
+@RequestMapping("/car")
 public class CarController {
 	
-	@GetMapping("/hello") // @TypeOfRequest("location")
-	public String sayHi() {
-		return "Hello, World";
+	private CarServiceList service; 
+	
+	@Autowired
+	public CarController(CarServiceList service) {
+		this.service = service; 
 	}
-	
-	private List<Car> vehicles = new ArrayList<>(); 
-	
-	
-	// List - Create a new car - Add a car to a list
-	// Read a car from a list
-	// Update a car 
-	// Delete a car
 	
 	// CREATE
 	
 	@PostMapping("/create")
 	public ResponseEntity<Car> createVehicle(@RequestBody Car car){
-		this.vehicles.add(car);
-		// Grab the last thing that was added to the list
-		Car added = this.vehicles.get(this.vehicles.size()-1);
-		return new ResponseEntity<Car>(added, HttpStatus.CREATED);
+		return new ResponseEntity<Car>(this.service.createVehicle(car), HttpStatus.CREATED);
 	}
 	
 	// READ
@@ -50,7 +44,7 @@ public class CarController {
 	public ResponseEntity<List<Car>> getAllVehicles(){
 		//return new ResponseEntity<List<Car>>(this.vehicles,HttpStatus.OK); 
 		// builder pattern 
-		return ResponseEntity.ok(this.vehicles);
+		return ResponseEntity.ok(this.service.getAllVehicles());
 		
 	}
 	
@@ -58,7 +52,7 @@ public class CarController {
 	
 	@GetMapping("/getOne/{index}")
 	public ResponseEntity<Car> getVehicle(@PathVariable int index) {
-		return ResponseEntity.ok(this.vehicles.get(index));
+		return ResponseEntity.ok(this.service.getVehicle(index));
 	}
 	
 	
@@ -66,14 +60,14 @@ public class CarController {
 	
 	@DeleteMapping("/remove/{index}")
 	public ResponseEntity removeVehicle(@PathVariable int index) {
-		return this.vehicles.remove(index) != null ? new ResponseEntity<>(HttpStatus.NO_CONTENT) :
+		return this.service.removeVehicle(index) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) :
 			new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	// PUT - replace the whole thing
 	@PutMapping("/replace/{index}")
 	public ResponseEntity<Car> updateVehicle(@PathVariable int index, @RequestBody Car newCar){
-		this.vehicles.set(index, newCar);
+		this.service.updateVehicle(index, newCar);
 		return new ResponseEntity<Car>(newCar, HttpStatus.ACCEPTED);
 	}
 	
@@ -81,11 +75,11 @@ public class CarController {
 	@PatchMapping("/update/{index}")
 	public ResponseEntity<Car> changeAttribute(@PathParam("make") String make, @PathParam("model") String model, @PathVariable int index){
 		
-		Car updatedVehicle = this.vehicles.get(index);		
-		updatedVehicle.setMake(make);
-		updatedVehicle.setModel(model);
-		
-		return new ResponseEntity<Car>(updatedVehicle, HttpStatus.ACCEPTED);
+//		Car updatedVehicle = this.vehicles.get(index);		
+//		updatedVehicle.setMake(make);
+//		updatedVehicle.setModel(model);
+		return null; 
+//		return new ResponseEntity<Car>(, HttpStatus.ACCEPTED);
 	}
 	
 
