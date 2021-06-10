@@ -79,6 +79,10 @@ public class CarController {
 //		return new ResponseEntity<Car>(, HttpStatus.ACCEPTED);
 	}
 	
+	@GetMapping("/getMake/{make}")
+	public ResponseEntity<List<Car>> getMake(@PathVariable String make){
+		return new ResponseEntity<List<Car>>(this.service.getByMake(make), HttpStatus.OK);
+	}
 
 }
 
