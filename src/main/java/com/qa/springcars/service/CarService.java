@@ -53,10 +53,15 @@ public class CarService {
 	// UPDATE
 	
 	public Car updateVehicle(Long id, Car newCar) {
-		Optional<Car> toBeUpdated = this.repo.findById(id);
-		toBeUpdated = Optional.of(newCar); 
-		return newCar; 
+		Car existing = this.getVehicle(id);
+		existing.setMake(newCar.getMake());
+		existing.setModel(newCar.getModel());
+		existing.setYear(newCar.getYear());
+		existing.setDoors(newCar.getDoors());
 		
+		Car updated = this.repo.save(existing); // save it back to overwrite original
+		
+		return updated; 
 	}
 
 }
