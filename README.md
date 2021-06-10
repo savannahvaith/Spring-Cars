@@ -1,24 +1,24 @@
-# Repo and Entity
+# Custom Queries
 
-## Repository 
+Custom Queries are a way for us to write our own code as part of JPQL - Java Persistent Query Language.
 
-Repositories provide methods for interacting with a database. 
-In spring, they take the form of interfaces that extend `JpaRespotiory`. 
+Spring is smart enough to figure out what the query would be via the method name that is placed in the repository.
 
-```java
-@Repository 
+For more control, we could use the @Query('sql statementhere') annotation.
 
-public interface CarRepo extends JpaRepository<Car,Long>{
-	...
-}
+
+# Swagger
+
+Swagger is a way for us to see the available end points in our API
+
+Add the following dependency to you `pom.xml`
+
+```xml
+<dependency>
+	<groupId>io.springfox</groupId>
+	<artifactId>springfox-boot-starter</artifactId>
+	<version>3.0.0</version>
+</dependency> 
 ```
 
-`JpaRepository` extends a type of `Car,Long` with `Car` being the type of the Entity, and `Long` being the type of `id`.
-
-By extending the JpaRepository, the instance that is created at runtime will inherit all the basic CRUD functionality. 
-
-
-## Entity
-
-Entity Marks a class as a `table`. 
-The domain class must contain the annotation `@Entity` to let Spring know that this is the domain object that will be made a table of. 
+To see the EndPoints, run your application then navigate to `https://localhost:<PORTNUMBER>/swagger-ui/index.html`.
