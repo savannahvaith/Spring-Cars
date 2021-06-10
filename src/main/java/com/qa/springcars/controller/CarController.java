@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.springcars.domain.Car;
-import com.qa.springcars.service.CarServiceList;
+import com.qa.springcars.service.CarService;
 
 @RestController // Allow eternal access to our application via HTTPRequests
 @RequestMapping("/car")
 public class CarController {
 	
-	private CarServiceList service; 
+	private CarService service; 
 	
 	@Autowired
-	public CarController(CarServiceList service) {
+	public CarController(CarService service) {
 		this.service = service; 
 	}
 	
@@ -48,7 +48,7 @@ public class CarController {
 	// READ ONE
 	
 	@GetMapping("/getOne/{index}")
-	public ResponseEntity<Car> getVehicle(@PathVariable int index) {
+	public ResponseEntity<Car> getVehicle(@PathVariable Long index) {
 		return ResponseEntity.ok(this.service.getVehicle(index));
 	}
 	
@@ -56,14 +56,14 @@ public class CarController {
 	// DELETE ONE
 	
 	@DeleteMapping("/remove/{index}")
-	public ResponseEntity removeVehicle(@PathVariable int index) {
+	public ResponseEntity removeVehicle(@PathVariable Long index) {
 		return this.service.removeVehicle(index) ? new ResponseEntity<>(HttpStatus.NO_CONTENT) :
 			new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	// PUT - replace the whole thing
 	@PutMapping("/replace/{index}")
-	public ResponseEntity<Car> updateVehicle(@PathVariable int index, @RequestBody Car newCar){
+	public ResponseEntity<Car> updateVehicle(@PathVariable Long index, @RequestBody Car newCar){
 		this.service.updateVehicle(index, newCar);
 		return new ResponseEntity<Car>(newCar, HttpStatus.ACCEPTED);
 	}
