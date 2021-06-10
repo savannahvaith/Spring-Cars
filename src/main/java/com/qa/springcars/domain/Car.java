@@ -1,14 +1,28 @@
 package com.qa.springcars.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity // Marks as Table!
 public class Car {
 
+	@Id // PK
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO INCREMENT
+	private Long id;
+	
 	private String make;
+	
 	private String model;
+	
 	private int year;
+	
 	private int doors;
 
 	// Default Constructor - Constructor with NO arguments
 	public Car() {
+		// REQUIRED!
 	}
 
 	// Constructor
