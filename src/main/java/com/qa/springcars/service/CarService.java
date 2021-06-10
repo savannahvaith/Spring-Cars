@@ -51,7 +51,6 @@ public class CarService {
 	}
 	
 	// UPDATE
-	
 	public Car updateVehicle(Long id, Car newCar) {
 		Car existing = this.getVehicle(id);
 		existing.setMake(newCar.getMake());
@@ -62,6 +61,10 @@ public class CarService {
 		Car updated = this.repo.save(existing); // save it back to overwrite original
 		
 		return updated; 
+	}
+	
+	public List<Car> getByMake(String make) {
+		return this.repo.findByMake(make);
 	}
 
 }
