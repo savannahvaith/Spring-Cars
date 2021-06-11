@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.qa.springcars.domain.Car;
 import com.qa.springcars.service.CarService;
 
-@RestController // Allow eternal access to our application via HTTPRequests
+@RestController // Allow external access to our application via HTTPRequests
 @RequestMapping("/car")
 public class CarController {
 	
