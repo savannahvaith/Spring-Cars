@@ -33,12 +33,25 @@ public class Car {
 		this.year = year;
 		this.doors = doors;
 	}
+	
+	// Constructor with ID
+	
+	public Car(Long id, String make, String model, int year, int doors) {
+		super();
+		this.id = id;
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.doors = doors;
+	}
+	
 
 	// getters and setters - interact with attributes
 
 	public String getMake() {
 		return make;
 	}
+
 
 	public void setMake(String make) {
 		this.make = make;
